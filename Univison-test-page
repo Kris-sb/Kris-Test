@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login ViX - Widget</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background: #0d0d12;
+      color: #ffffff;
+      padding: 24px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 400px;
+      text-align: left;
+    }
+
+    /* --- Logo SVG --- */
+    .logo-wrapper {
+      margin-bottom: 32px;
+    }
+
+    .logo-wrapper svg {
+      width: 85px;
+      height: auto;
+      display: block;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #ff4b5c, #ff7c32);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 26px;
+      margin-bottom: 32px;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 18px;
+    }
+
+    input {
+      padding: 14px;
+      border-radius: 6px;
+      border: 1px solid #2c2c34;
+      background: #15151c;
+      color: #ffffff;
+      font-size: 15px;
+      width: 100%;
+    }
+
+    input::placeholder {
+      color: #5f5f6a;
+    }
+
+    .password-wrapper {
+      position: relative;
+    }
+
+    .password-toggle-btn {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      background: transparent;
+      color: #8a8a96;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      background: #ff6d2f;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #ffffff;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.2s ease, opacity 0.2s ease;
+    }
+
+    .btn:hover {
+      background: #ff7f45;
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .error-message {
+      color: #ff6b6b;
+      font-size: 13px;
+      margin-top: 4px;
+      min-height: 16px;
+    }
+
+    .form-message {
+      font-size: 13px;
+      margin-top: 10px;
+      min-height: 18px;
+    }
+
+    .form-message--success {
+      color: #00c853;
+    }
+
+    .form-message--error {
+      color: #ff6b6b;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- LOGO SVG -->
+    <div class="logo-wrapper">
+      <svg width="100%" viewBox="0 0 256 100" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#FFF"
+          d="M31.9024 1.97395C33.6184 1.97395 34.8725 2.89774 35.2685 4.54738L52.4951 66.5078L69.9198 4.54738C70.3158 2.96373 71.5039 1.97395 73.2859 1.97395H101.403C102.723 1.97395 103.647 3.29366 103.251 4.54738L75.53 93.1659C75.002 94.8815 73.814 95.7393 72.0319 95.7393H32.4304C30.7143 95.7393 29.4603 94.9475 28.9323 93.1659L1.07919 4.54738C0.683174 3.35964 1.67321 1.97395 2.99326 1.97395H31.9024ZM108.465 19.6581C108.465 9.23235 117.046 0.654236 127.474 0.654236C137.902 0.654236 146.483 9.23235 146.483 19.6581C146.483 30.0838 137.902 38.6619 127.474 38.6619C117.046 38.6619 108.465 30.0838 108.465 19.6581ZM144.503 92.9679C144.503 94.5516 143.447 95.6734 141.797 95.6734H113.151C111.567 95.6734 110.445 94.6176 110.445 92.9679V48.6917C110.445 47.108 111.501 45.9863 113.151 45.9863H141.797C143.381 45.9863 144.503 47.042 144.503 48.6917V92.9679ZM154.271 92.3081L181.332 48.8236L154.271 5.33921C153.281 3.75555 154.139 1.97395 155.987 1.97395H186.612C188.724 1.97395 189.978 2.6338 190.902 4.21745L205.753 30.1498L220.604 4.21745C221.594 2.6338 222.782 1.97395 224.894 1.97395H254.859C256.707 1.97395 257.565 3.68957 256.575 5.33921L229.514 48.8236L256.575 92.3081C257.499 93.8917 256.707 95.6734 254.859 95.6734H224.234C222.122 95.6734 220.868 95.0135 219.944 93.4298L205.093 67.4975L190.242 93.4298C189.318 95.0135 188.13 95.6734 185.952 95.6734H155.987C154.139 95.6734 153.281 93.9577 154.271 92.3081Z" />
+      </svg>
+    </div>
+
+    <!-- TEXTOS -->
+    <h1 class="gradient-text">Inicia sesión</h1>
+    <div class="subtitle">con tu cuenta ViX</div>
+
+    <!-- FORM -->
+    <form id="loginForm" novalidate>
+      <div class="input-group">
+        <input id="email" type="email" placeholder="ejemplo@email.com" autocomplete="email" />
+        <div id="emailError" class="error-message"></div>
+      </div>
+
+      <div class="input-group password-wrapper">
+        <input id="password" type="password" placeholder="Contraseña" autocomplete="current-password" />
+        <button type="button" id="togglePassword" class="password-toggle-btn">Mostrar</button>
+        <div id="passwordError" class="error-message"></div>
+      </div>
+
+      <button class="btn" type="submit" id="submitBtn">Iniciar sesión</button>
+      <div id="formMessage" class="form-message"></div>
+    </form>
+  </div>
+  <script>
+    (function () {
+      const form = document.getElementById("loginForm");
+      const emailInput = document.getElementById("email");
+      const passwordInput = document.getElementById("password");
+      const emailError = document.getElementById("emailError");
+      const passwordError = document.getElementById("passwordError");
+      const formMessage = document.getElementById("formMessage");
+      const submitBtn = document.getElementById("submitBtn");
+      const togglePasswordBtn = document.getElementById("togglePassword");
+
+      // En producción, no dejar expuesta la API KEY en el frontend.
+      const VIX_API_KEY = "2dPfVhp0G2wUCl1pi43o4rYUsWxIMDbxOyyRaIbO1JwAxDAJ";
+
+      // --- Toggle contraseña ---
+      togglePasswordBtn.addEventListener("click", () => {
+        const isPassword = passwordInput.type === "password";
+        passwordInput.type = isPassword ? "text" : "password";
+        togglePasswordBtn.textContent = isPassword ? "Ocultar" : "Mostrar";
+      });
+
+      // --- Validadores ---
+      const validateEmail = (v) =>
+        !v ? "Introduce tu correo electrónico." :
+          !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? "Introduce un correo válido." :
+            "";
+
+      const validatePassword = (v) =>
+        !v ? "Introduce tu contraseña." :
+          v.length < 6 ? "La contraseña debe tener al menos 6 caracteres." :
+            "";
+
+      const setLoading = (b) => {
+        submitBtn.disabled = b;
+        submitBtn.textContent = b ? "Iniciando sesión..." : "Iniciar sesión";
+      };
+
+      const clearErrors = () => {
+        emailError.textContent = "";
+        passwordError.textContent = "";
+        formMessage.textContent = "";
+        formMessage.className = "form-message";
+      };
+
+      // --- Submit ---
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        clearErrors();
+
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
+
+        const emailValidation = validateEmail(email);
+        const passwordValidation = validatePassword(password);
+
+        if (emailValidation || passwordValidation) {
+          emailError.textContent = emailValidation;
+          passwordError.textContent = passwordValidation;
+          formMessage.textContent = "Revisa los campos marcados en rojo.";
+          formMessage.classList.add("form-message--error");
+          return;
+        }
+
+        setLoading(true);
+
+        try {
+          // installationId (uuid v4)
+          const installationId = crypto.randomUUID();
+
+          // Anonymous user
+          const anonRes = await fetch(
+            "https://identity-api.stg.vix.tv/v1/auth/key/anon-user",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "x-vix-api-key": VIX_API_KEY,
+                "x-vix-platform": "web",
+              },
+              body: JSON.stringify({ installationId }),
+            }
+          );
+
+          if (!anonRes.ok) {
+            console.error("Anon error status:", anonRes.status);
+            throw new Error("No se pudo iniciar la sesión.");
+          }
+
+          const anonData = await anonRes.json();
+          // Ejemplo:
+          // {"accessToken":"[access-token]","refreshToken":"[refresh-token]",
+          //  "tokenType":"Bearer","expiresIn":7200,"userToken":"[user-token]"}
+
+          const anonAccessToken = anonData.accessToken;
+          const anonUserToken = anonData.userToken;
+
+          if (!anonAccessToken) {
+            throw new Error("Respuesta inválida al crear usuario anónimo.");
+          }
+
+          // Login usuario registrado
+          const loginRes = await fetch(
+            "https://identity-api.stg.vix.tv/v1/auth/token/reg-user/login",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "x-vix-platform": "web",
+                "Authorization": `Bearer ${anonAccessToken}`,
+              },
+              body: JSON.stringify({ email, password }),
+            }
+          );
+
+          if (!loginRes.ok) {
+            if (loginRes.status === 401) {
+              throw new Error("Correo o contraseña incorrectos.");
+            }
+            console.error("Login error status:", loginRes.status);
+            throw new Error("Ocurrió un error al iniciar sesión.");
+          }
+
+          const loginData = await loginRes.json();
+          // Ejemplo:
+          // {"accessToken":"[access-token]","userToken":"[user-token]",
+          //  "refreshToken":"v1.[refresh-token]","tokenType":"Bearer",
+          //  "expiresIn":7200,
+          //  "profiles":[{"id":"[userId-uuid]","name":"Default","color":"#F58216"}],
+          //  "accessLevel":"FREE|PREMIUM"}
+
+          const finalAccessToken = loginData.accessToken;
+          const finalRefreshToken = loginData.refreshToken;
+          const finalUserToken = loginData.userToken;
+          const profiles = loginData.profiles || [];
+          const accessLevel = loginData.accessLevel || "UNKNOWN";
+
+          if (!finalAccessToken) {
+            throw new Error("No se recibió accessToken del login.");
+          }
+
+          // Payload hacia Ada
+          const payload = {
+            status: "success",
+            email,
+            installationId,
+            // tokens de usuario registrado
+            auth: {
+              accessToken: finalAccessToken,
+              refreshToken: finalRefreshToken,
+              userToken: finalUserToken,
+              tokenType: loginData.tokenType,
+              expiresIn: loginData.expiresIn,
+              profiles,
+              accessLevel,
+            },
+          };
+
+          if (window.AdaWidget && typeof window.AdaWidget.complete === "function") {
+            window.AdaWidget.complete(payload);
+            return;
+          }
+
+          // Fallback local sin SDK
+          console.log("Login correcto. Payload hacia Ada:", payload);
+          formMessage.textContent = "Login exitoso (sin SDK conectado).";
+          formMessage.classList.add("form-message--success");
+
+        } catch (err) {
+          console.error("Error en login:", err);
+          formMessage.textContent = err.message || "Error inesperado al iniciar sesión.";
+          formMessage.classList.add("form-message--error");
+        } finally {
+          setLoading(false);
+        }
+      });
+
+      // Notificar que el widget está listo
+      if (window.AdaWidget && typeof window.AdaWidget.ready === "function") {
+        window.AdaWidget.ready();
+      }
+    })();
+  </script>
+</body>
+
+</html>
